@@ -1,0 +1,39 @@
+---
+name: 🔄 Validate Renovate Configuration
+
+on:
+  merge_group: {}
+  pull_request:
+    paths: ["*.json"]
+
+concurrency:
+  group: ${{ github.action }}-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+permissions: {}
+
+jobs:
+  validate:
+    name: ✅ Validate Renovate config
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@cdca7365b2dadb8aad0a33bc7601856ffabcc48e # v4.3.0
+        with:
+          node-version: lts/*
+
+      - name: 📦 Install renovate
+        run: npm install -g renovate
+
+      - name: 🔍 Validate Renovate config files
+        run: |
+          find . -maxdepth 1 -name "*.json" -type f ! -name ".devcontainer.json" ! -name "github-actions.json" -print0 | xargs -0 -I{} sh -c '
+            echo "::group::Validating Renovate configuration {}"
+            echo "Validating {}"
+            renovate-config-validator {} || exit 1
+            echo "::endgroup::"
+          '
