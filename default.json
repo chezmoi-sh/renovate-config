@@ -3,6 +3,8 @@
   "extends": [
     ":automergeDigest",
     ":automergeLinters",
+    ":automergeMinor",
+    ":automergePatch",
     ":automergeRequireAllStatusChecks",
     ":automergeTesters",
     ":combinePatchMinorReleases",
