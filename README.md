@@ -42,5 +42,3 @@ For organizations managing Renovate across numerous repositories, creating a glo
 - `github>chezmoi-sh/renovate-config:gitmoji`: make each Renovate commit compatible with [Gitmoji](https://gitmoji.dev/).
 - `github>chezmoi-sh/renovate-config:github-actions({{schedule}})`: groups all GitHub-actions upgrades together to reduce the number of PRs.
   - `{{schedule}}`: defines when GitHub actions upgrade should be scheduled. Must be one of `daily`, `earlyMondays`, `monthly`, `nonOfficeHours`, `quarterly`, `weekdays`, `weekends`, `weekly` or `yearly`
-- `github>chezmoi-sh/renovate-config:automerge@{{type}}`: automatically merge PRs when all checks are passing.
-  - `{{type}}`: defines which type of PRs should be automatically merged. Must be one of `all`, `minor` or `patch`
